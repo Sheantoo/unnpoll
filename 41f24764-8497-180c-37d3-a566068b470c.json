@@ -1,0 +1,52 @@
+{
+    "doc_id": "41f24764-8497-180c-37d3-a566068b470c",
+    "document_name": "фффф",
+    "doc_desc": "ппппп",
+    "questions": [
+        {
+            "questionText": "what is 2+2",
+            "qustionType": "checkbox",
+            "options": [
+                {
+                    "optionText": "2"
+                },
+                {
+                    "optionText": "Berlin"
+                },
+                {
+                    "optionText": "4"
+                }
+            ],
+            "open": false,
+            "required": true
+        },
+        {
+            "questionText": "вопрос 2",
+            "qustionType": "radio",
+            "options": [
+                {
+                    "optionText": "Option1"
+                },
+                {
+                    "optionText": "Option2"
+                },
+                {
+                    "optionText": "Option3"
+                }
+            ],
+            "open": true,
+            "required": true
+        },
+        {
+            "questionText": "кто убил пушкина",
+            "qustionType": "text",
+            "options": [
+                {
+                    "optionText": "Option1"
+                }
+            ],
+            "open": false,
+            "required": false
+        }
+    ]
+}

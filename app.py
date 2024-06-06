@@ -18,6 +18,7 @@ async def if_con():
     else:
         print("что-то с базой")
 
+
 async def main():
     await if_con()
     bot = Bot(token ="6458503910:AAGORHNT4np02C_8kp8EaYyTBrdiLxmUnVs")
