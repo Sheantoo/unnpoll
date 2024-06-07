@@ -1,8 +1,9 @@
 from aiogram.types import (ReplyKeyboardMarkup, KeyboardButton, 
                             InlineKeyboardMarkup,InlineKeyboardButton)
-import prs 
 
+import prs 
 import json
+
 
 def create_dynamic_keyboard(items, page=0, items_per_page=3):
     total_pages = (len(items) + items_per_page - 1) // items_per_page
@@ -22,30 +23,28 @@ def create_dynamic_keyboard(items, page=0, items_per_page=3):
     keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
     return keyboard
 
+async def send_checkbox_question(chat_id, question, bot):
+    buttons = []
+    for option in question["options"]:
+        print(option["optionText"])
+        button = [InlineKeyboardButton(text = option["optionText"], callback_data=option["optionText"])]
+        buttons.append(button)
+    buttons.append([InlineKeyboardButton(text = "Подтвердить выбранный ответ", callback_data="confirm_checkbox")])
+    keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
+    await bot.send_message(chat_id, question["question_text"], reply_markup=keyboard)
 
-def create_multi_select_keyboard(data, selected_items):
-    keyboard = InlineKeyboardMarkup(row_width=1)
-    for item in data:
-        if item[0] in selected_items:
-            button_text = f'✅ {item[1]} ({item[2]})'
-        else:
-            button_text = f'{item[1]} ({item[2]})'
-        button = InlineKeyboardButton(text=button_text, callback_data=f'select_{item[0]}')
-        keyboard.add(button)
-    return keyboard
+async def send_radio_question(chat_id, question, bot):
+    buttons = []
+    for option in question["options"]:
+        button = [InlineKeyboardButton(option["optionText"], callback_data=option["optionText"])]
+        buttons.append(button)
+    buttons.append([InlineKeyboardButton("Подтвердить", callback_data="confirm_radio")])
+    await bot.send_message(chat_id, question["questionText"], reply_markup=buttons)
 
-def create_confirm_button():
-    keyboard = InlineKeyboardMarkup(row_width=1)
-    button = InlineKeyboardButton(text='Подтвердить выбор', callback_data='confirm_selection')
-    keyboard.add(button)
-    return keyboard
+async def send_text_question(chat_id, question, bot):
+    await bot.send_message(chat_id, question["questionText"])
 
-async def generate_question_keyboard(question_data):
-    parsed_data = json.loads(question_data)
-    keyboard = InlineKeyboardMarkup(row_width=1)
-    for question in parsed_data['questions']:
-        button_text = question['questionText']
-        callback_data = f'answer_{question["questionText"]}'
-        keyboard.add(InlineKeyboardButton(text=button_text, callback_data=callback_data))
-    return keyboard
+
+
+
 
