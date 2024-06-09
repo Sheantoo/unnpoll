@@ -21,7 +21,7 @@ async def if_con():
 
 async def main():
     await if_con()
-    bot = Bot(token ="6458503910:AAGORHNT4np02C_8kp8EaYyTBrdiLxmUnVs")
+    bot = Bot(token ="Token")
     dp = Dispatcher()
     dp.include_router(router)
     await dp.start_polling(bot)
