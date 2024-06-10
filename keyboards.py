@@ -46,3 +46,31 @@ async def send_text_question(chat_id, question, bot):
     await bot.send_message(chat_id, question["question_text"])
 
 
+async def send_checkbox_question_false(chat_id, question, bot):
+    buttons = []
+    for option in question["options"]:
+        button = [InlineKeyboardButton(text=option["optionText"], callback_data=option["optionText"])]
+        buttons.append(button)
+    buttons.append([InlineKeyboardButton(text="Подтвердить выбранный ответ", callback_data="confirm_checkbox")])
+    buttons.append([InlineKeyboardButton(text="Пропустить вопрос\nВопрос необязательный.", callback_data="question_false")])
+    keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
+    await bot.send_message(chat_id, question["question_text"], reply_markup=keyboard)
+
+async def send_radio_question_false(chat_id, question, bot):
+    buttons = []
+    for option in question["options"]:
+        button = [InlineKeyboardButton(text=option["optionText"], callback_data=option["optionText"])]
+        buttons.append(button)
+    buttons.append([InlineKeyboardButton(text="Подтвердить", callback_data="confirm_radio")])
+    buttons.append([InlineKeyboardButton(text="Пропустить вопрос\nВопрос необязательный.", callback_data="question_false")])
+    keyboard = InlineKeyboardMarkup(inline_keyboard=buttons)
+    await bot.send_message(chat_id, question["question_text"], reply_markup=keyboard)
+
+
+# Отправка вопроса типа text
+async def send_text_question_false(chat_id, question, bot):
+    await bot.send_message(chat_id, question["question_text"]+'. Необязательный вопрос наберите "/skip" для перехода к следующему вопросу')
+    
+
+
+
